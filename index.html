@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DompetKu</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f3f6fb;
+      color: #172033;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 430px;
+      min-height: 100vh;
+      margin: auto;
+      background: #fff;
+      padding-bottom: 80px;
+    }
+
+    /* HEADER */
+    .header {
+      background: linear-gradient(135deg, #1769ff, #0d47d9);
+      color: white;
+      padding: 28px 20px 24px;
+      border-radius: 0 0 25px 25px;
+    }
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    .profile {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: white;
+      color: #1769ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    .hello {
+      font-size: 13px;
+      opacity: .85;
+    }
+
+    .name {
+      font-size: 17px;
+      font-weight: bold;
+    }
+
+    .bell {
+      font-size: 23px;
+    }
+
+    .balance-title {
+      font-size: 13px;
+      opacity: .8;
+    }
+
+    .balance {
+      font-size: 30px;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+
+    .account {
+      font-size: 12px;
+      opacity: .8;
+      margin-top: 6px;
+    }
+
+    /* MENU */
+    .menu {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      padding: 20px 14px;
+      gap: 10px;
+    }
+
+    .menu-item {
+      text-align: center;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .icon {
+      width: 50px;
+      height: 50px;
+      margin: auto auto 7px;
+      border-radius: 16px;
+      background: #edf3ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 23px;
+    }
+
+    /* PROMO */
+    .section {
+      padding: 0 18px;
+      margin-top: 8px;
+    }
+
+    .section-title {
+      font-size: 17px;
+      font-weight: bold;
+      margin-bottom: 13px;
+    }
+
+    .promo {
+      background: linear-gradient(135deg, #1769ff, #5d91ff);
+      color: white;
+      padding: 18px;
+      border-radius: 18px;
+      min-height: 115px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .promo h3 {
+      font-size: 18px;
+      margin-bottom: 7px;
+    }
+
+    .promo p {
+      font-size: 12px;
+      opacity: .9;
+      max-width: 220px;
+      line-height: 1.5;
+    }
+
+    .promo-circle {
+      position: absolute;
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.12);
+      right: -35px;
+      top: -25px;
+    }
+
+    /* TRANSACTIONS */
+    .transaction {
+      display: flex;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid #edf0f5;
+    }
+
+    .transaction-icon {
+      width: 42px;
+      height: 42px;
+      background: #edf3ff;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 12px;
+    }
+
+    .transaction-info {
+      flex: 1;
+    }
+
+    .transaction-name {
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .transaction-date {
+      font-size: 11px;
+      color: #8992a3;
+      margin-top: 4px;
+    }
+
+    .amount {
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .minus {
+      color: #ef4444;
+    }
+
+    .plus {
+      color: #16a34a;
+    }
+
+    /* BOTTOM NAV */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 430px;
+      height: 68px;
+      background: white;
+      border-top: 1px solid #e8ebf0;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .nav-item {
+      text-align: center;
+      font-size: 11px;
+      color: #8b94a7;
+    }
+
+    .nav-item.active {
+      color: #1769ff;
+      font-weight: bold;
+    }
+
+    .nav-icon {
+      font-size: 21px;
+      margin-bottom: 3px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <div class="header">
+
+    <div class="top">
+      <div class="profile">
+        <div class="avatar">H</div>
+
+        <div>
+          <div class="hello">Selamat datang</div>
+          <div class="name">Hasbi</div>
+        </div>
+      </div>
+
+      <div class="bell">🔔</div>
+    </div>
+
+    <div class="balance-title">
+      Saldo tersedia
+    </div>
+
+    <div class="balance">
+      Rp 11.984.000
+    </div>
+
+    <div class="account">
+      •••• 8821
+    </div>
+
+  </div>
+
+
+  <div class="menu">
+
+    <div class="menu-item">
+      <div class="icon">📱</div>
+      Pulsa
+    </div>
+
+    <div class="menu-item">
+      <div class="icon">💸</div>
+      Kirim
+    </div>
+
+    <div class="menu-item">
+      <div class="icon">📷</div>
+      Bayar
+    </div>
+
+    <div class="menu-item">
+      <div class="icon">➕</div>
+      Top Up
+    </div>
+
+  </div>
+
+
+  <div class="section">
+
+    <div class="section-title">
+      Promo untukmu
+    </div>
+
+    <div class="promo">
+
+      <div class="promo-circle"></div>
+
+      <h3>Transaksi lebih mudah</h3>
+
+      <p>
+        Nikmati pengalaman pembayaran
+        digital yang cepat dan praktis.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="section" style="margin-top:25px">
+
+    <div class="section-title">
+      Transaksi terakhir
+    </div>
+
+    <div class="transaction">
+
+      <div class="transaction-icon">
+        🛒
+      </div>
+
+      <div class="transaction-info">
+        <div class="transaction-name">
+          Pembayaran
+        </div>
+
+        <div class="transaction-date">
+          Hari ini • 10:21
+        </div>
+      </div>
+
+      <div class="amount minus">
+        - Rp 45.000
+      </div>
+
+    </div>
+
+
+    <div class="transaction">
+
+      <div class="transaction-icon">
+        💰
+      </div>
+
+      <div class="transaction-info">
+        <div class="transaction-name">
+          Top Up
+        </div>
+
+        <div class="transaction-date">
+          Kemarin • 18:42
+        </div>
+      </div>
+
+      <div class="amount plus">
+        + Rp 100.000
+      </div>
+
+    </div>
+
+
+    <div class="transaction">
+
+      <div class="transaction-icon">
+        📱
+      </div>
+
+      <div class="transaction-info">
+        <div class="transaction-name">
+          Pulsa
+        </div>
+
+        <div class="transaction-date">
+          5 Okt • 14:20
+        </div>
+      </div>
+
+      <div class="amount minus">
+        - Rp 25.000
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<div class="bottom-nav">
+
+  <div class="nav-item active">
+    <div class="nav-icon">⌂</div>
+    Beranda
+  </div>
+
+  <div class="nav-item">
+    <div class="nav-icon">📊</div>
+    Aktivitas
+  </div>
+
+  <div class="nav-item">
+    <div class="nav-icon">🎁</div>
+    Promo
+  </div>
+
+  <div class="nav-item">
+    <div class="nav-icon">👤</div>
+    Saya
+  </div>
+
+</div>
+
+</body>
+</html>
